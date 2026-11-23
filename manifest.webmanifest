@@ -1,0 +1,15 @@
+{
+  "id": "./",
+  "name": "RESOLVE AI — Problem Solver",
+  "short_name": "RESOLVE AI",
+  "description": "Investigate problems and create practical action plans.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#07111f",
+  "theme_color": "#07111f",
+  "icons": [
+    { "src": "./icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
