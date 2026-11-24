@@ -85,3 +85,32 @@
   .discover-feature-grid{max-width:820px}
   .category-grid{max-width:620px}
 }
+
+
+/* ===== RESOLVE AI visual upgrade (presentation only) ===== */
+.topbar-actions{display:flex;align-items:center;gap:12px}
+.get-app-button{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:39px;padding:8px 14px;border:1px solid #6dded5;border-radius:11px;background:linear-gradient(110deg,#a8bcff,#63e0d2);color:#071622;text-decoration:none;font:800 10px 'DM Sans',sans-serif;letter-spacing:.65px;box-shadow:0 8px 22px #5edbd322;white-space:nowrap;transition:transform .18s,filter .18s}
+.get-app-button b{font-size:16px;line-height:1}
+.get-app-button:hover{filter:brightness(1.08);transform:translateY(-2px)}
+.discover-heading h1{font-size:clamp(40px,7vw,54px);letter-spacing:-2px}
+.discover-search{box-shadow:0 12px 28px #0002;transition:border-color .2s,transform .2s}
+.discover-search:hover{border-color:var(--cyan);transform:translateY(-1px)}
+.category-tab,.category-tile,.discover-card{transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+.discover-card{box-shadow:0 16px 38px #0003}
+.discover-card:hover{transform:translateY(-3px);border-color:#63e0d2;box-shadow:0 18px 42px #0004}
+.category-tile:hover{box-shadow:0 12px 26px #0003}
+.category-tile:focus-visible,.discover-card:focus-visible,.category-tab:focus-visible,.get-app-button:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+.mobile-bottom-nav a{transition:background .18s,color .18s,transform .18s}
+.mobile-bottom-nav a:active{transform:scale(.94)}
+#problemPanel,#historyListPanel,.result-panel{scroll-margin-top:24px}
+@media(max-width:620px){
+  .topbar-actions{gap:6px}
+  .topbar-actions .secure-pill{display:none}
+  .get-app-button{min-height:34px;padding:7px 10px;font-size:9px}
+  .discover-heading h1{font-size:40px}
+  .discover-feature-grid{gap:10px}
+  .discover-card{min-height:196px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;transition:none!important}
+}

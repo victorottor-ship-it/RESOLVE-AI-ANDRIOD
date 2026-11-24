@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-  <body>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -21,7 +20,14 @@
         <span class="brand-mark">R<span>.</span></span>
         <span class="brand-copy"><strong>RESOLVE<span> AI</span></strong><small>PROBLEM-RESOLUTION WORKSPACE</small></span>
       </a>
-      <div class="secure-pill"><span class="secure-dot"></span> Private workspace</div>
+      <div class="topbar-actions">
+        <div class="secure-pill"><span class="secure-dot"></span> Private workspace</div>
+        <a class="get-app-button" id="getAppButton"
+           href="https://github.com/victorottor-ship-it/RESOLVE-AI-ANDRIOD/releases/latest/download/resolve-ai.apk"
+           aria-label="Get the RESOLVE AI Android app">
+          <span>GET APP</span><b aria-hidden="true">↓</b>
+        </a>
+      </div>
     </header>
 
     <section id="authView" class="auth-layout">
@@ -65,12 +71,63 @@
     </section>
 
     <section id="appView" class="app-view hidden">
-      <div class="workspace-heading">
-        <div><div class="eyebrow"><span></span> YOUR WORKSPACE</div><h1>What needs resolving?</h1><p>Describe the situation. RESOLVE will help organise the problem and suggest a practical plan.</p></div>
-        <button id="logout" class="button secondary" type="button">Sign out <span>↗</span></button>
+      <div class="discover-top">
+        <div class="discover-heading">
+          <div class="eyebrow"><span></span> YOUR PRIVATE WORKSPACE</div>
+          <h1>Discover</h1>
+          <p>Find clarity, explore possibilities and move toward a solution.</p>
+        </div>
+        <button id="logout" class="profile-button" type="button" aria-label="Sign out">R</button>
       </div>
-      <div class="workspace-grid">
-        <section class="panel composer">
+
+      <a class="discover-search" href="#problem" aria-label="Start describing a problem">
+        <span>What would you like to resolve?</span><b aria-hidden="true">⌕</b>
+      </a>
+
+      <nav class="category-tabs" aria-label="Problem categories">
+        <a class="category-tab active" href="#problem">For you</a>
+        <a class="category-tab" href="#category">Business</a>
+        <a class="category-tab" href="#category">Education</a>
+        <a class="category-tab" href="#category">Technology</a>
+        <a class="category-tab" href="#category">Career</a>
+      </nav>
+
+      <div class="discover-section-title">
+        <div><span class="step-label">START HERE</span><h2>Turn a challenge into a plan</h2></div>
+        <span class="section-spark">✦</span>
+      </div>
+
+      <div class="discover-feature-grid">
+        <a class="discover-card featured-card" href="#problem">
+          <span class="discover-card-icon">✳</span>
+          <span class="discover-card-kicker">GUIDED INVESTIGATION</span>
+          <strong>Understand the problem</strong>
+          <small>Organise the facts, uncover possible causes and identify what matters.</small>
+          <span class="discover-card-action">Start now <b>→</b></span>
+        </a>
+        <a class="discover-card secondary-card" href="#historyList">
+          <span class="discover-card-icon">▣</span>
+          <span class="discover-card-kicker">YOUR WORKSPACE</span>
+          <strong>Continue your work</strong>
+          <small>Return to a previous investigation and review your progress.</small>
+          <span class="discover-card-action">View history <b>→</b></span>
+        </a>
+      </div>
+
+      <div class="discover-section-title categories-title">
+        <div><span class="step-label">EXPLORE</span><h2>More categories</h2></div>
+      </div>
+      <div class="category-grid">
+        <a class="category-tile" href="#category"><span>▤</span><b>Business</b></a>
+        <a class="category-tile" href="#category"><span>⌘</span><b>Education</b></a>
+        <a class="category-tile" href="#category"><span>⌁</span><b>Technology</b></a>
+        <a class="category-tile" href="#category"><span>↗</span><b>Career</b></a>
+        <a class="category-tile" href="#category"><span>◷</span><b>Productivity</b></a>
+        <a class="category-tile" href="#category"><span>◎</span><b>Other</b></a>
+      </div>
+
+      <div class="workspace-grid" id="investigationWorkspace">
+        <section class="panel composer" id="problemPanel">
           <div class="panel-heading"><div><span class="step-label">START AN INVESTIGATION</span><h2>Describe the problem</h2></div><span class="panel-symbol">✳</span></div>
           <label for="problem">What is happening?</label>
           <textarea id="problem" rows="7" maxlength="8000" placeholder="Explain what is happening, what you have already tried, and what outcome you want. Include relevant facts, but leave out passwords and sensitive personal information."></textarea>
@@ -94,28 +151,27 @@
         </aside>
       </div>
 
-      <div id="splashScreen">
-  <div class="splash-content">
-    <div class="splash-logo">R<span>.</span></div>
-    <h1>RESOLVE <span>AI</span></h1>
-    <p>THINK CLEARLY. ACT WITH EVIDENCE.</p>
-    <div class="splash-loader"></div>
-    <small>Preparing your workspace...</small>
-  </div>
-</div>
-
       <section id="result" class="panel result-panel hidden">
         <div class="result-heading"><div><span class="step-label">YOUR INVESTIGATION</span><h2 id="resultTitle">Resolution brief</h2></div><button id="copy" class="button secondary" type="button">Copy report</button></div>
         <div id="resultBody"></div>
       </section>
-      <section class="panel history-panel">
+      <section class="panel history-panel" id="historyListPanel">
         <div class="panel-heading"><div><span class="step-label">YOUR SAVED WORK</span><h2>Recent investigations</h2></div><span class="history-badge">Last 10</span></div>
         <div id="historyList" class="history-list"><p class="muted">Your saved investigations will appear here.</p></div>
       </section>
+
+      <nav class="mobile-bottom-nav" aria-label="Main navigation">
+        <a href="#problemPanel" aria-label="Investigate"><span>⌕</span></a>
+        <a href="#historyListPanel" aria-label="Saved work"><span>▣</span></a>
+        <a class="nav-current" href="#appView" aria-label="Discover"><span>⌂</span></a>
+        <a href="#problemPanel" aria-label="Profile and workspace"><span>◉</span></a>
+        <a href="#investigationWorkspace" aria-label="All tools"><span>▦</span></a>
+      </nav>
     </section>
 
     <footer class="footer"><span>RESOLVE AI</span><span>Think clearly. Act with evidence.</span><span>AI suggestions should be checked before important decisions.</span></footer>
   </main>
+  <script src="./app-download.js" defer></script>
   <script type="module" src="./app.js"></script>
 </body>
 </html>
