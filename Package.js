@@ -1,0 +1,13 @@
+{
+  "name": "resolve-ai",
+  "version": "1.0.0",
+  "private": true,
+  "description": "RESOLVE AI Android application",
+  "dependencies": {
+    "@capacitor/core": "7.4.3",
+    "@capacitor/android": "7.4.3"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "7.4.3"
+  }
+}
