@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1005751159506",
+    "project_id": "resolve-ai-2030b",
+    "storage_bucket": "resolve-ai-2030b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1005751159506:android:703cf4b16eaf17e74fbb0b",
+        "android_client_info": {
+          "package_name": "com.resolveai.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADRv2_l4OG0EF-8aaSI_nm03tGK--EPIo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
