@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#07111f">
+  <meta name="description" content="RESOLVE AI turns difficult problems into clear, evidence-led next steps.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+  <title>RESOLVE AI — Think clearly. Act with evidence.</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+  <main class="shell">
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="RESOLVE AI home">
+        <span class="brand-mark">R<span>.</span></span>
+        <span class="brand-copy"><strong>RESOLVE<span> AI</span></strong><small>PROBLEM-RESOLUTION WORKSPACE</small></span>
+      </a>
+      <div class="secure-pill"><span class="secure-dot"></span> Private workspace</div>
+    </header>
+
+    <section id="authView" class="auth-layout">
+      <div class="hero-copy">
+        <div class="eyebrow"><span></span> THINK CLEARLY. ACT WITH EVIDENCE.</div>
+        <h1>Turn difficult problems into <span>clear next steps.</span></h1>
+        <p class="hero-lead">A structured space to understand what is happening, explore possible causes and build a practical plan you can measure.</p>
+        <div class="hero-points">
+          <div><span class="point-icon">01</span><span><b>Understand the problem</b><small>Separate facts, assumptions and missing information.</small></span></div>
+          <div><span class="point-icon">02</span><span><b>Choose a sensible approach</b><small>Compare realistic options before taking action.</small></span></div>
+          <div><span class="point-icon">03</span><span><b>Track what works</b><small>Turn recommendations into measurable next steps.</small></span></div>
+        </div>
+      </div>
+
+      <section class="auth-card" aria-label="Account access">
+        <div class="card-kicker">YOUR WORKSPACE STARTS HERE</div>
+        <h2>Welcome to RESOLVE</h2>
+        <p class="card-subtitle">Sign in or create an account to continue.</p>
+        <div class="tabs" role="tablist" aria-label="Account options">
+          <button id="loginTab" class="tab active" type="button" role="tab" aria-selected="true">Sign in</button>
+          <button id="signupTab" class="tab" type="button" role="tab" aria-selected="false">Create account</button>
+        </div>
+        <form id="authForm">
+          <div id="nameField" class="field hidden">
+            <label for="name">Your name</label>
+            <input id="name" autocomplete="name" placeholder="How should we address you?" maxlength="80">
+          </div>
+          <div class="field">
+            <label for="email">Email address</label>
+            <input id="email" type="email" required autocomplete="email" placeholder="you@example.com">
+          </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <input id="password" type="password" required minlength="8" autocomplete="current-password" placeholder="At least 8 characters">
+          </div>
+          <button id="authSubmit" class="button primary full" type="submit"><span>Sign in</span><b aria-hidden="true">→</b></button>
+          <p id="authMessage" class="message" role="status" aria-live="polite"></p>
+        </form>
+        <div class="privacy-note"><span>◈</span><p>Use an email you control. Never enter passwords, bank details or private API keys into a problem description.</p></div>
+      </section>
+    </section>
+
+    <section id="appView" class="app-view hidden">
+      <div class="discover-top">
+        <div class="discover-heading">
+          <div class="eyebrow"><span></span> YOUR PRIVATE WORKSPACE</div>
+          <h1>Discover</h1>
+          <p>Find clarity, explore possibilities and move toward a solution.</p>
+        </div>
+        <button id="logout" class="profile-button" type="button" aria-label="Sign out">R</button>
+      </div>
+
+      <a class="discover-search" href="#problem" aria-label="Start describing a problem">
+        <span>What would you like to resolve?</span><b aria-hidden="true">⌕</b>
+      </a>
+
+      <nav class="category-tabs" aria-label="Problem categories">
+        <a class="category-tab active" href="#problem">For you</a>
+        <a class="category-tab" href="#category">Business</a>
+        <a class="category-tab" href="#category">Education</a>
+        <a class="category-tab" href="#category">Technology</a>
+        <a class="category-tab" href="#category">Career</a>
+      </nav>
+
+      <div class="discover-section-title">
+        <div><span class="step-label">START HERE</span><h2>Turn a challenge into a plan</h2></div>
+        <span class="section-spark">✦</span>
+      </div>
+
+      <div class="discover-feature-grid">
+        <a class="discover-card featured-card" href="#problem">
+          <span class="discover-card-icon">✳</span>
+          <span class="discover-card-kicker">GUIDED INVESTIGATION</span>
+          <strong>Understand the problem</strong>
+          <small>Organise the facts, uncover possible causes and identify what matters.</small>
+          <span class="discover-card-action">Start now <b>→</b></span>
+        </a>
+        <a class="discover-card secondary-card" href="#historyList">
+          <span class="discover-card-icon">▣</span>
+          <span class="discover-card-kicker">YOUR WORKSPACE</span>
+          <strong>Continue your work</strong>
+          <small>Return to a previous investigation and review your progress.</small>
+          <span class="discover-card-action">View history <b>→</b></span>
+        </a>
+      </div>
+
+      <div class="discover-section-title categories-title">
+        <div><span class="step-label">EXPLORE</span><h2>More categories</h2></div>
+      </div>
+      <div class="category-grid">
+        <a class="category-tile" href="#category"><span>▤</span><b>Business</b></a>
+        <a class="category-tile" href="#category"><span>⌘</span><b>Education</b></a>
+        <a class="category-tile" href="#category"><span>⌁</span><b>Technology</b></a>
+        <a class="category-tile" href="#category"><span>↗</span><b>Career</b></a>
+        <a class="category-tile" href="#category"><span>◷</span><b>Productivity</b></a>
+        <a class="category-tile" href="#category"><span>◎</span><b>Other</b></a>
+      </div>
+
+      <div class="workspace-grid" id="investigationWorkspace">
+        <section class="panel composer" id="problemPanel">
+          <div class="panel-heading"><div><span class="step-label">START AN INVESTIGATION</span><h2>Describe the problem</h2></div><span class="panel-symbol">✳</span></div>
+          <label for="problem">What is happening?</label>
+          <textarea id="problem" rows="7" maxlength="8000" placeholder="Explain what is happening, what you have already tried, and what outcome you want. Include relevant facts, but leave out passwords and sensitive personal information."></textarea>
+          <div class="input-foot"><span>Be specific. More useful context leads to a more useful plan.</span><span id="charCount">0 / 8,000</span></div>
+          <div class="form-controls">
+            <div class="field"><label for="category">Category</label><select id="category"><option>Auto-detect</option><option>Business</option><option>Education</option><option>Career</option><option>Technology</option><option>Personal productivity</option><option>Customer service</option><option>Other</option></select></div>
+            <div class="field"><label for="priority">Priority</label><select id="priority"><option>Normal</option><option>High</option><option>Urgent</option></select></div>
+          </div>
+          <button id="analyse" class="button primary investigate" type="button"><span>Investigate problem</span><b aria-hidden="true">→</b></button>
+          <p id="appMessage" class="message" role="status" aria-live="polite"></p>
+        </section>
+
+        <aside class="panel process-panel">
+          <span class="step-label">THE RESOLVE METHOD</span><h2>From confusion to clarity.</h2>
+          <div class="process-step"><span>01</span><div><b>Investigate</b><p>Clarify the issue and known facts.</p></div></div>
+          <div class="process-step"><span>02</span><div><b>Analyse</b><p>Explore plausible causes and uncertainty.</p></div></div>
+          <div class="process-step"><span>03</span><div><b>Strategise</b><p>Identify a realistic way forward.</p></div></div>
+          <div class="process-step"><span>04</span><div><b>Plan</b><p>Arrange actions into manageable steps.</p></div></div>
+          <div class="process-step"><span>05</span><div><b>Evaluate</b><p>Define how progress will be checked.</p></div></div>
+          <div class="assist-note"><span>✦</span><p>RESOLVE suggests actions for you to review. It does not perform external actions on your behalf.</p></div>
+        </aside>
+      </div>
+
+      <section id="result" class="panel result-panel hidden">
+        <div class="result-heading"><div><span class="step-label">YOUR INVESTIGATION</span><h2 id="resultTitle">Resolution brief</h2></div><button id="copy" class="button secondary" type="button">Copy report</button></div>
+        <div id="resultBody"></div>
+      </section>
+      <section class="panel history-panel" id="historyListPanel">
+        <div class="panel-heading"><div><span class="step-label">YOUR SAVED WORK</span><h2>Recent investigations</h2></div><span class="history-badge">Last 10</span></div>
+        <div id="historyList" class="history-list"><p class="muted">Your saved investigations will appear here.</p></div>
+      </section>
+
+      <nav class="mobile-bottom-nav" aria-label="Main navigation">
+        <a href="#problemPanel" aria-label="Investigate"><span>⌕</span></a>
+        <a href="#historyListPanel" aria-label="Saved work"><span>▣</span></a>
+        <a class="nav-current" href="#appView" aria-label="Discover"><span>⌂</span></a>
+        <a href="#problemPanel" aria-label="Profile and workspace"><span>◉</span></a>
+        <a href="#investigationWorkspace" aria-label="All tools"><span>▦</span></a>
+      </nav>
+    </section>
+
+    <footer class="footer"><span>RESOLVE AI</span><span>Think clearly. Act with evidence.</span><span>AI suggestions should be checked before important decisions.</span></footer>
+  </main>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
