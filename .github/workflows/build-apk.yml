@@ -1,1 +1,54 @@
 
+name: Build RESOLVE AI APK
+
+"on":
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Prepare web files
+        run: |
+          mkdir -p www/icons
+          cp index.html style.css app.js manifest.webmanifest sw.js www/
+          cp icon.svg www/icons/icon.svg
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Add Android platform
+        run: npx cap add android
+
+      - name: Synchronize Android project
+        run: npx cap sync android
+
+      - name: Build APK
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: RESOLVE-AI-APK
+          path: android/app/build/outputs/apk/debug/app-debug.apk
