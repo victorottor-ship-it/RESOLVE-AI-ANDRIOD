@@ -255,3 +255,18 @@ if (problemBox) {
     $("charCount").textContent = `${problemBox.value.length.toLocaleString()} / 8,000`;
   });
 }
+// RESOLVE AI splash screen
+window.addEventListener("load", () => {
+  const splash = document.getElementById("splashScreen");
+
+  if (splash) {
+    setTimeout(() => {
+      splash.classList.add("hide");
+
+      setTimeout(() => {
+        splash.remove();
+      }, 800);
+
+    }, 3500);
+  }
+});
