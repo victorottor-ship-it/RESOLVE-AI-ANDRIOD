@@ -1,0 +1,10 @@
+GITHUB UPLOAD STEPS
+
+1. Extract RESOLVE-AI-ANDROID-UPGRADE.zip.
+2. Open the extracted RESOLVE-AI-ANDROID-UPGRADE folder.
+3. Select everything INSIDE it: .github, www, package.json, capacitor.config.json, firestore.rules, README.md.
+4. Upload those contents to the ROOT of victorottor-ship-it/RESOLVE-AI-ANDRIOD.
+5. Commit to main.
+6. Open GitHub Actions and download the artifact named resolve-ai-android-debug-apk after the build succeeds.
+
+Do not upload the ZIP as a single file. Do not delete your Cloudflare Worker project or its secrets. If the repository already has backend files not included here, keep them.
