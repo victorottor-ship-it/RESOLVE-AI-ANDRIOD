@@ -69,43 +69,32 @@
 }
 
 
-/* User profile control replacing the old Private workspace badge. */
-.profile-area{position:relative;display:flex;align-items:center;flex:none}
-.profile-toggle{display:flex;align-items:center;gap:9px;min-height:42px;padding:6px 11px 6px 7px;border:1px solid #36566e;border-radius:999px;background:linear-gradient(120deg,#142f46,#102338);color:#dceaf7;font:700 11px 'DM Sans',sans-serif;cursor:pointer;white-space:nowrap}
-.profile-toggle:hover,.profile-toggle[aria-expanded="true"]{border-color:#63e0d2;box-shadow:0 0 0 3px #63e0d218}
-.profile-avatar{width:29px;height:29px;display:grid;place-items:center;flex:none;border:1px solid #6edbd3;border-radius:50%;background:linear-gradient(145deg,#294c68,#153347);color:#d9fffb;font:800 11px Manrope,sans-serif}
-.profile-chevron{color:#83dcd4;font-size:16px;line-height:1}
-.profile-menu{position:absolute;top:calc(100% + 12px);right:0;z-index:80;width:min(290px,calc(100vw - 34px));padding:15px;border:1px solid #36566e;border-radius:16px;background:linear-gradient(145deg,#142b43,#091827);box-shadow:0 18px 48px #0009}
-.profile-menu-heading{display:flex;align-items:center;gap:11px;min-width:0}
-.profile-avatar-large{width:42px;height:42px;font-size:14px}
-.profile-identity{display:grid;gap:3px;min-width:0}
-.profile-identity strong{color:#f3f7fc;font:700 13px Manrope,sans-serif;overflow-wrap:anywhere}
-.profile-identity span{color:#9aacc0;font-size:10px;overflow-wrap:anywhere}
-.profile-menu-note{margin-top:13px;padding-top:11px;border-top:1px solid #ffffff16;color:#8da7bd;font-size:10px}
-@media(max-width:620px){
-  .native-app .profile-toggle{min-height:38px;padding:5px 8px 5px 5px;gap:6px;font-size:9px}
-  .native-app .profile-avatar{width:27px;height:27px}
-  .native-app .profile-chevron{font-size:14px}
-}
-
-/* Expanded account profile and settings menu. */
-.profile-menu{max-height:min(78vh,620px);overflow:auto}
-.profile-form{display:grid;gap:8px;margin-top:15px;padding-top:13px;border-top:1px solid #ffffff16}
-.profile-form label{margin:0;color:#c4d2e0;font-size:10px}
-.profile-form input[type="text"]{padding:10px 11px;font-size:12px}
-.profile-form .photo-input{padding:8px;font-size:10px;color:#aebfd0}
-.profile-form .photo-input::file-selector-button{margin-right:8px;padding:7px 9px;border:1px solid #36566e;border-radius:8px;background:#17324a;color:#dceaf7;font:600 10px 'DM Sans',sans-serif}
-.profile-hint{color:#8198ad;font-size:9px}
-.profile-save{width:100%;min-height:38px;margin-top:4px;font-size:11px}
-.profile-form .message{min-height:14px;margin:0;font-size:10px;overflow-wrap:anywhere}
-.profile-avatar.has-photo{background-size:cover;background-position:center;background-repeat:no-repeat;border-color:#63e0d2}
-.profile-settings{display:grid;gap:9px;margin-top:13px;padding-top:12px;border-top:1px solid #ffffff16}
-.profile-settings-title{color:#7fded4;font-size:9px;font-weight:800;letter-spacing:1.4px}
-.settings-email{display:grid;gap:3px;padding:8px 0}
-.settings-email span{color:#8298ad;font-size:9px}
-.settings-email strong{color:#d9e7f4;font-size:11px;overflow-wrap:anywhere}
-.profile-action{display:flex;justify-content:space-between;align-items:center;width:100%;padding:10px 11px;border:1px solid #2d4962;border-radius:9px;background:#10243a;color:#d6e5f2;text-align:left;font:600 10px 'DM Sans',sans-serif;cursor:pointer}
-.profile-action span{color:#80e0bf}
-.profile-action:hover{border-color:#63e0d2}
-.profile-signout{color:#ffcfca;border-color:#65434a;background:#2a202b}
-@media(max-width:620px){.profile-menu{width:min(300px,calc(100vw - 24px));right:-2px;padding:13px}}
+/* RESOLVE AI native Android startup animation */
+.boot-splash{display:none}
+.native-app .boot-splash{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;overflow:hidden;background:radial-gradient(ellipse at 50% 42%,#163b54 0%,#0b2034 38%,#050d18 78%);opacity:1;visibility:visible;transition:opacity .65s ease,visibility .65s ease}
+.native-app .boot-splash.boot-splash-out{opacity:0;visibility:hidden;pointer-events:none}
+.boot-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;padding:28px;text-align:center;animation:boot-content-in .85s cubic-bezier(.2,.8,.2,1) both}
+.boot-logo-wrap{position:relative;width:142px;height:142px;display:grid;place-items:center;margin-bottom:27px}
+.boot-logo{position:relative;z-index:2;width:92px;height:92px;display:grid;place-items:center;border:1px solid #75eee1;border-radius:29px;background:linear-gradient(145deg,#1b3c58,#0a1c2e);box-shadow:0 0 35px #63e0d255,inset 0 1px 0 #ffffff30;color:#f5f9ff;font:800 65px/1 Manrope,sans-serif;letter-spacing:-7px;padding-right:6px;animation:boot-logo-pulse 2s ease-in-out infinite}
+.boot-logo span{color:#63e0d2}
+.boot-orbit{position:absolute;border:1px solid #63e0d26b;border-radius:50%;inset:5px;animation:boot-orbit-spin 5s linear infinite}
+.boot-orbit:before{content:"";position:absolute;top:13px;left:17px;width:7px;height:7px;border-radius:50%;background:#8af4e8;box-shadow:0 0 13px #63e0d2}
+.boot-orbit-two{inset:0 17px;border-color:#9cb7ff55;transform:rotate(55deg);animation:boot-orbit-spin-reverse 6s linear infinite}
+.boot-orbit-two:before{top:auto;left:auto;right:8px;bottom:21px;background:#a9bdff;box-shadow:0 0 13px #9cb7ff}
+.boot-spark{position:absolute;width:5px;height:5px;border-radius:50%;background:#aaf8ed;box-shadow:0 0 14px 3px #63e0d2;animation:boot-spark 1.8s ease-in-out infinite}
+.boot-spark-one{top:13px;right:22px}.boot-spark-two{bottom:20px;left:15px;animation-delay:.8s}
+.boot-wordmark{color:#f3f7fc;font:800 27px/1.2 Manrope,sans-serif;letter-spacing:4px;animation:boot-word-in .8s .18s both}
+.boot-wordmark span{color:#63e0d2}
+.boot-tagline{margin-top:11px;color:#9bb5c9;font-size:9px;font-weight:700;letter-spacing:2.3px;animation:boot-word-in .8s .32s both}
+.boot-progress{width:156px;height:3px;margin-top:34px;overflow:hidden;border-radius:9px;background:#29445b}
+.boot-progress span{display:block;width:42%;height:100%;border-radius:9px;background:linear-gradient(90deg,#9cb7ff,#63e0d2);box-shadow:0 0 12px #63e0d2;animation:boot-progress 1.65s ease-in-out infinite}
+.boot-loading{margin-top:12px;color:#66849b;font-size:8px;font-weight:700;letter-spacing:2px;animation:boot-fade 1.5s ease-in-out infinite}
+.boot-glow{position:absolute;width:300px;height:300px;border-radius:50%;filter:blur(80px);opacity:.15;pointer-events:none}
+.boot-glow-a{top:12%;left:calc(50% - 250px);background:#497cff}.boot-glow-b{right:calc(50% - 270px);bottom:8%;background:#36d8c5}
+@keyframes boot-content-in{from{opacity:0;transform:translateY(18px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes boot-word-in{from{opacity:0;transform:translateY(9px);letter-spacing:7px}to{opacity:1;transform:translateY(0);letter-spacing:4px}}
+@keyframes boot-logo-pulse{0%,100%{transform:scale(1);box-shadow:0 0 27px #63e0d244,inset 0 1px 0 #ffffff30}50%{transform:scale(1.045);box-shadow:0 0 45px #63e0d277,inset 0 1px 0 #ffffff40}}
+@keyframes boot-orbit-spin{to{transform:rotate(360deg)}}@keyframes boot-orbit-spin-reverse{to{transform:rotate(-305deg)}}
+@keyframes boot-spark{0%,100%{opacity:.3;transform:scale(.7)}50%{opacity:1;transform:scale(1.35)}}
+@keyframes boot-progress{0%{transform:translateX(-120%)}100%{transform:translateX(360%)}}@keyframes boot-fade{0%,100%{opacity:.45}50%{opacity:1}}
+@media(prefers-reduced-motion:reduce){.native-app .boot-splash,.boot-content,.boot-logo,.boot-orbit,.boot-spark,.boot-wordmark,.boot-tagline,.boot-progress span,.boot-loading{animation:none!important;transition:none!important}.boot-progress span{width:100%}}
