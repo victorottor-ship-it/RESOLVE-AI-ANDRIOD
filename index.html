@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+  <script>if (window.Capacitor?.isNativePlatform?.() || window.Capacitor?.getPlatform?.() === "android") document.documentElement.classList.add("native-launch");</script>
   <!-- Native Android boot animation; intentionally hidden on the website. -->
   <div id="bootSplash" class="boot-splash" aria-label="RESOLVE AI is starting" role="status">
     <div class="boot-glow boot-glow-a" aria-hidden="true"></div>
@@ -37,7 +38,22 @@
         <span class="brand-mark">R<span>.</span></span>
         <span class="brand-copy"><strong>RESOLVE<span> AI</span></strong><small>PROBLEM-RESOLUTION WORKSPACE</small></span>
       </a>
-      <div class="secure-pill"><span class="secure-dot"></span> Private workspace</div>
+      <div class="profile-area native-only hidden">
+        <button id="profileToggle" class="profile-trigger" type="button" aria-expanded="false" aria-controls="profileMenu">
+          <span id="profileAvatar" class="profile-avatar">U</span><span class="profile-trigger-copy"><b id="profileTriggerName">User profile</b><small>ACCOUNT</small></span><span class="profile-chevron">⌄</span>
+        </button>
+        <section id="profileMenu" class="profile-menu hidden" aria-label="User profile and account settings">
+          <div class="profile-menu-heading"><div><span class="step-label">YOUR ACCOUNT</span><h2>Profile</h2></div><button id="profileClose" class="icon-button" type="button" aria-label="Close profile">×</button></div>
+          <div class="profile-identity"><span id="profileLargeAvatar" class="profile-avatar profile-avatar-large">U</span><div><b id="profileDisplayName">User</b><small id="profileEmail">Signed-in account</small></div></div>
+          <form id="profileForm" class="profile-form">
+            <div class="field"><label for="profileNameInput">Display name</label><input id="profileNameInput" maxlength="80" autocomplete="name" placeholder="Your name"></div>
+            <div class="field"><label for="profilePhotoInput">Profile picture URL</label><input id="profilePhotoInput" type="url" inputmode="url" placeholder="https://example.com/photo.jpg"></div>
+            <button class="button primary full" type="submit">Save profile</button>
+            <p id="profileMessage" class="message" role="status" aria-live="polite"></p>
+          </form>
+          <div class="profile-settings"><span class="step-label">ACCOUNT SETTINGS</span><button id="resetPassword" class="profile-setting-button" type="button">Send password-reset email <span>→</span></button><button id="profileSignOut" class="profile-setting-button danger" type="button">Sign out <span>↗</span></button></div>
+        </section>
+      </div>
     </header>
 
     <section id="authView" class="auth-layout">

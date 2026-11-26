@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, signOut } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, sendPasswordResetEmail, signOut } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
 import { getFirestore, collection, addDoc, getDocs, query, orderBy, limit, serverTimestamp, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 
 // Firebase web-app config belongs here. It is not the Gemini API key.
@@ -17,7 +17,7 @@ const nativeApp = Boolean(window.Capacitor?.isNativePlatform?.() || window.Capac
 if (nativeApp) {
   document.body.classList.add("native-app");
   const bootSplash = document.getElementById("bootSplash");
-  if (bootSplash) window.setTimeout(() => bootSplash.classList.add("boot-splash-out"), 2350);
+  if (bootSplash) window.setTimeout(() => bootSplash.classList.add("boot-splash-out"), 30000);
 }
 const apiUrl = nativeApp
   ? "https://resolve-ai.victorottor.workers.dev/api/investigate"
@@ -58,8 +58,13 @@ if (!configReady()) {
       user => {
         authView.classList.toggle("hidden", Boolean(user));
         appView.classList.toggle("hidden", !user);
-        if (user) loadHistory().catch(error => showMessage("appMessage", friendlyError(error), true));
-        else { currentCaseId = null; currentMessages = []; }
+        if (user) {
+          refreshProfile(user);
+          loadHistory().catch(error => showMessage("appMessage", friendlyError(error), true));
+        } else {
+          currentCaseId = null; currentMessages = [];
+          refreshProfile(null);
+        }
       },
       error => showMessage("authMessage", friendlyError(error), true)
     );
@@ -163,6 +168,65 @@ function friendlyError(error) {
 $("logout").addEventListener("click", async () => {
   if (auth) await signOut(auth);
 });
+
+// Native account profile: Firebase Auth stores the display name and photo URL.
+function refreshProfile(user) {
+  if (!$("profileToggle")) return;
+  const name = user?.displayName || "User profile";
+  const photo = user?.photoURL || "";
+  $("profileTriggerName").textContent = name;
+  $("profileDisplayName").textContent = name;
+  $("profileEmail").textContent = user?.email || "Not signed in";
+  $("profileNameInput").value = user?.displayName || "";
+  $("profilePhotoInput").value = photo;
+  for (const id of ["profileAvatar", "profileLargeAvatar"]) {
+    const avatar = $(id);
+    avatar.replaceChildren();
+    if (photo) {
+      const image = document.createElement("img");
+      image.src = photo;
+      image.alt = "Profile picture";
+      image.referrerPolicy = "no-referrer";
+      image.onerror = () => { avatar.textContent = (name.trim()[0] || "U").toUpperCase(); };
+      avatar.append(image);
+    } else avatar.textContent = (name.trim()[0] || "U").toUpperCase();
+  }
+}
+function closeProfileMenu() {
+  $("profileMenu")?.classList.add("hidden");
+  $("profileToggle")?.setAttribute("aria-expanded", "false");
+}
+$("profileToggle")?.addEventListener("click", () => {
+  const open = $("profileMenu").classList.toggle("hidden") === false;
+  $("profileToggle").setAttribute("aria-expanded", String(open));
+});
+$("profileClose")?.addEventListener("click", closeProfileMenu);
+$("profileForm")?.addEventListener("submit", async event => {
+  event.preventDefault();
+  const user = auth?.currentUser;
+  if (!user) return;
+  const displayName = $("profileNameInput").value.trim();
+  const photoURL = $("profilePhotoInput").value.trim();
+  if (!displayName) { showMessage("profileMessage", "Enter a display name.", true); return; }
+  if (photoURL && !/^https:\/\//i.test(photoURL)) { showMessage("profileMessage", "Use a secure HTTPS image link.", true); return; }
+  const save = $("profileForm").querySelector('button[type="submit"]');
+  save.disabled = true;
+  try {
+    await updateProfile(user, { displayName, photoURL: photoURL || null });
+    refreshProfile(user);
+    showMessage("profileMessage", "Profile updated successfully.");
+  } catch (error) { showMessage("profileMessage", friendlyError(error), true); }
+  finally { save.disabled = false; }
+});
+$("resetPassword")?.addEventListener("click", async () => {
+  const email = auth?.currentUser?.email;
+  if (!email) return showMessage("profileMessage", "No account email is available.", true);
+  try {
+    await sendPasswordResetEmail(auth, email);
+    showMessage("profileMessage", `Password-reset instructions sent to ${email}.`);
+  } catch (error) { showMessage("profileMessage", friendlyError(error), true); }
+});
+$("profileSignOut")?.addEventListener("click", async () => { closeProfileMenu(); if (auth) await signOut(auth); });
 
 $("analyse").addEventListener("click", async () => {
   if (!auth?.currentUser || !db) {

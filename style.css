@@ -98,3 +98,35 @@
 @keyframes boot-spark{0%,100%{opacity:.3;transform:scale(.7)}50%{opacity:1;transform:scale(1.35)}}
 @keyframes boot-progress{0%{transform:translateX(-120%)}100%{transform:translateX(360%)}}@keyframes boot-fade{0%,100%{opacity:.45}50%{opacity:1}}
 @media(prefers-reduced-motion:reduce){.native-app .boot-splash,.boot-content,.boot-logo,.boot-orbit,.boot-spark,.boot-wordmark,.boot-tagline,.boot-progress span,.boot-loading{animation:none!important;transition:none!important}.boot-progress span{width:100%}}
+
+
+/* Restore the native user-profile control and account dropdown. */
+.native-app .profile-area{position:relative;display:flex;align-items:center}
+.native-app .profile-trigger{display:flex;align-items:center;gap:9px;min-width:0;padding:6px 10px 6px 7px;border:1px solid #36566e;border-radius:14px;background:linear-gradient(135deg,#142e47,#0d2033);color:#edf6ff;text-align:left;cursor:pointer}
+.native-app .profile-avatar{width:35px;height:35px;flex:0 0 35px;display:grid;place-items:center;overflow:hidden;border:1px solid #63e0d2;border-radius:50%;background:linear-gradient(135deg,#284e6b,#153248);color:#bdf8ef;font:800 15px Manrope,sans-serif}
+.native-app .profile-avatar img{width:100%;height:100%;object-fit:cover}
+.native-app .profile-trigger-copy{display:grid;gap:2px;min-width:0}
+.native-app .profile-trigger-copy b{max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px}
+.native-app .profile-trigger-copy small{color:#81a2b9;font-size:7px;font-weight:800;letter-spacing:1.5px}
+.native-app .profile-chevron{color:#82ddd3;font-size:16px}
+.native-app .profile-menu{position:absolute;top:calc(100% + 12px);right:0;z-index:80;width:min(340px,calc(100vw - 28px));max-height:min(76vh,680px);overflow:auto;padding:17px;border:1px solid #3a5b74;border-radius:19px;background:linear-gradient(155deg,#122b43,#081827);box-shadow:0 22px 65px #000b}
+.native-app .profile-menu-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.native-app .profile-menu-heading h2{margin:4px 0 0;font:750 21px Manrope,sans-serif}
+.native-app .profile-identity{display:flex;align-items:center;gap:11px;padding:12px;border:1px solid #294960;border-radius:13px;background:#0a1b2b;margin-bottom:14px}
+.native-app .profile-avatar-large{width:48px;height:48px;flex-basis:48px;font-size:20px}
+.native-app .profile-identity div{display:grid;gap:4px;min-width:0}
+.native-app .profile-identity b{font-size:13px;overflow-wrap:anywhere}
+.native-app .profile-identity small{color:#91aabd;font-size:10px;overflow-wrap:anywhere}
+.native-app .profile-form{display:grid;gap:10px}
+.native-app .profile-form .field{margin:0}
+.native-app .profile-form label{font-size:10px}
+.native-app .profile-form input{min-height:42px;font-size:12px}
+.native-app .profile-form .button{min-height:42px}
+.native-app .profile-settings{display:grid;gap:8px;margin-top:17px;padding-top:14px;border-top:1px solid #29445b}
+.native-app .profile-setting-button{display:flex;justify-content:space-between;align-items:center;padding:11px 12px;border:1px solid #294960;border-radius:11px;background:#0c2032;color:#dceaf5;text-align:left;font-size:11px}
+.native-app .profile-setting-button span{color:#7be0d4}
+.native-app .profile-setting-button.danger{color:#ffb5b5}
+.native-app .profile-setting-button.danger span{color:#ffb5b5}
+@media(max-width:620px){.native-app .profile-trigger{gap:6px;padding:5px 7px 5px 5px}.native-app .profile-avatar{width:31px;height:31px;flex-basis:31px}.native-app .profile-trigger-copy b{max-width:76px;font-size:9px}.native-app .profile-trigger-copy small{font-size:6px}.native-app .profile-menu{right:-2px}}
+/* Avoid a flash of the app behind the splash while Capacitor initialises. */
+html.native-launch body .boot-splash{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;overflow:hidden;background:radial-gradient(ellipse at 50% 42%,#163b54 0%,#0b2034 38%,#050d18 78%)}
