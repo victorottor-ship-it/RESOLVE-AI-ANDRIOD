@@ -20,7 +20,37 @@
         <span class="brand-mark">R<span>.</span></span>
         <span class="brand-copy"><strong>RESOLVE<span> AI</span></strong><small>PROBLEM-RESOLUTION WORKSPACE</small></span>
       </a>
-      <div class="secure-pill"><span class="secure-dot"></span> Private workspace</div>
+      <div class="profile-area hidden" id="profileArea">
+        <button class="profile-toggle" id="profileToggle" type="button" aria-expanded="false" aria-controls="profileMenu">
+          <span class="profile-avatar" id="profileAvatar">U</span>
+          <span class="profile-button-label">User Profile</span>
+          <span class="profile-chevron" aria-hidden="true">⌄</span>
+        </button>
+        <section class="profile-menu hidden" id="profileMenu" aria-label="User profile">
+          <div class="profile-menu-heading">
+            <span class="profile-avatar profile-avatar-large" id="profileMenuAvatar">U</span>
+            <div class="profile-identity">
+              <strong id="profileName">User</strong>
+              <span id="profileEmail"></span>
+            </div>
+          </div>
+          <form id="profileForm" class="profile-form">
+            <label for="profileNameInput">Display name</label>
+            <input id="profileNameInput" type="text" maxlength="80" autocomplete="name" placeholder="Your name">
+            <label for="profilePhotoInput" class="photo-label">Profile picture</label>
+            <input id="profilePhotoInput" class="photo-input" type="file" accept="image/png,image/jpeg,image/webp">
+            <small class="profile-hint">PNG, JPG or WebP · maximum 2 MB</small>
+            <button id="saveProfile" class="button primary profile-save" type="submit">Save profile</button>
+            <p id="profileMessage" class="message" role="status" aria-live="polite"></p>
+          </form>
+          <div class="profile-settings">
+            <span class="profile-settings-title">ACCOUNT SETTINGS</span>
+            <div class="settings-email"><span>Email address</span><strong id="settingsEmail"></strong></div>
+            <button id="resetPassword" class="profile-action" type="button">Send password reset email <span>↗</span></button>
+            <button id="profileSignout" class="profile-action profile-signout" type="button">Sign out <span>↗</span></button>
+          </div>
+        </section>
+      </div>
     </header>
 
     <section id="authView" class="auth-layout">

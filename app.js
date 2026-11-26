@@ -1,6 +1,8 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, signOut } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
 import { getFirestore, collection, addDoc, getDocs, query, orderBy, limit, serverTimestamp, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-storage.js";
+import { sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
 
 // Firebase web-app config belongs here. It is not the Gemini API key.
 const firebaseConfig = {
@@ -21,6 +23,7 @@ const authView = $("authView");
 const appView = $("appView");
 let auth;
 let db;
+let storage;
 let signup = false;
 let currentReport = "";
 let currentCaseId = null;
@@ -48,13 +51,22 @@ if (!configReady()) {
     const firebaseApp = initializeApp(firebaseConfig);
     auth = getAuth(firebaseApp);
     db = getFirestore(firebaseApp);
+    storage = getStorage(firebaseApp);
     onAuthStateChanged(
       auth,
       user => {
         authView.classList.toggle("hidden", Boolean(user));
         appView.classList.toggle("hidden", !user);
-        if (user) loadHistory().catch(error => showMessage("appMessage", friendlyError(error), true));
-        else { currentCaseId = null; currentMessages = []; }
+        if (user) {
+          updateUserProfile(user);
+          loadHistory().catch(error => showMessage("appMessage", friendlyError(error), true));
+        } else {
+          currentCaseId = null;
+          currentMessages = [];
+          $("profileArea")?.classList.add("hidden");
+          $("profileMenu")?.classList.add("hidden");
+          $("profileToggle")?.setAttribute("aria-expanded", "false");
+        }
       },
       error => showMessage("authMessage", friendlyError(error), true)
     );
@@ -82,6 +94,84 @@ $("historyToggle")?.addEventListener("click", () => {
 });
 $("historyClose")?.addEventListener("click", closeHistoryDrawer);
 $("historyBackdrop")?.addEventListener("click", closeHistoryDrawer);
+
+function updateUserProfile(user) {
+  const name = user.displayName?.trim() || user.email?.split("@")[0] || "RESOLVE User";
+  const email = user.email || "Email unavailable";
+  const initials = name.split(/\s+/).filter(Boolean).slice(0, 2).map(part => part[0]).join("").toUpperCase() || "U";
+  $("profileName").textContent = name;
+  $("profileEmail").textContent = email;
+  $("settingsEmail").textContent = email;
+  $("profileNameInput").value = user.displayName || "";
+  [$("profileAvatar"), $("profileMenuAvatar")].forEach(avatar => {
+    avatar.textContent = user.photoURL ? "" : initials;
+    avatar.style.backgroundImage = user.photoURL ? `url("${user.photoURL}")` : "";
+    avatar.classList.toggle("has-photo", Boolean(user.photoURL));
+  });
+  $("profileArea")?.classList.remove("hidden");
+}
+
+$("profileForm")?.addEventListener("submit", async event => {
+  event.preventDefault();
+  const user = auth?.currentUser;
+  if (!user) return;
+  const button = $("saveProfile");
+  const name = $("profileNameInput").value.trim();
+  const photo = $("profilePhotoInput").files?.[0];
+  if (!name) return showMessage("profileMessage", "Enter a display name.", true);
+  if (photo && !["image/jpeg", "image/png", "image/webp"].includes(photo.type)) return showMessage("profileMessage", "Choose a PNG, JPG or WebP image.", true);
+  if (photo && photo.size > 2 * 1024 * 1024) return showMessage("profileMessage", "The profile picture must be 2 MB or smaller.", true);
+  button.disabled = true;
+  showMessage("profileMessage", "Saving your profile…");
+  try {
+    const updates = { displayName: name };
+    if (photo) {
+      const photoRef = ref(storage, `profilePictures/${user.uid}/avatar-${Date.now()}`);
+      await uploadBytes(photoRef, photo, { contentType: photo.type });
+      updates.photoURL = await getDownloadURL(photoRef);
+    }
+    await updateProfile(user, updates);
+    updateUserProfile(user);
+    $("profilePhotoInput").value = "";
+    showMessage("profileMessage", "Profile updated successfully.");
+  } catch (error) {
+    showMessage("profileMessage", friendlyError(error), true);
+  } finally {
+    button.disabled = false;
+  }
+});
+
+$("resetPassword")?.addEventListener("click", async () => {
+  const email = auth?.currentUser?.email;
+  if (!email) return showMessage("profileMessage", "No account email is available.", true);
+  try {
+    await sendPasswordResetEmail(auth, email);
+    showMessage("profileMessage", `Password reset link sent to ${email}.`);
+  } catch (error) {
+    showMessage("profileMessage", friendlyError(error), true);
+  }
+});
+
+$("profileSignout")?.addEventListener("click", async () => {
+  if (auth) await signOut(auth);
+});
+
+$("profileToggle")?.addEventListener("click", () => {
+  const open = $("profileMenu").classList.toggle("hidden") === false;
+  $("profileToggle").setAttribute("aria-expanded", String(open));
+});
+document.addEventListener("click", event => {
+  if (!$("profileArea")?.contains(event.target)) {
+    $("profileMenu")?.classList.add("hidden");
+    $("profileToggle")?.setAttribute("aria-expanded", "false");
+  }
+});
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") {
+    $("profileMenu")?.classList.add("hidden");
+    $("profileToggle")?.setAttribute("aria-expanded", "false");
+  }
+});
 $("historySearch")?.addEventListener("input", () => loadHistory().catch(error => showMessage("appMessage", friendlyError(error), true)));
 $("newConversation")?.addEventListener("click", () => {
   currentCaseId = null;
